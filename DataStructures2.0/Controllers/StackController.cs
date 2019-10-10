@@ -6,15 +6,13 @@ using System.Web.Mvc;
 
 namespace DataStructures2._0.Controllers
 {
-    public class HomeController : Controller
+    public class StackController : Controller
     {
-        public ActionResult Index()
-        {
+        // GET: Stack
+        public ActionResult IndexS()
+        {  
+
             return View();
-        }
-        public ActionResult Exit()
-        {
-            return Redirect("https://www.byu.edu");
         }
     }
 }
