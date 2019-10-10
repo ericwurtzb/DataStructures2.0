@@ -8,8 +8,8 @@ namespace DataStructures2._0.Controllers
 {
     public class DictionaryController : Controller
     {
-        // GET: Dictionary
-        static Dictionary<int, string> myDict = new Dictionary<int, string>();
+        static Dictionary<string, Nullable<int>> myDict = new Dictionary<string, Nullable<int>>();
+        public int indexToDelete;
 
         public ActionResult IndexD()
         {
@@ -19,7 +19,14 @@ namespace DataStructures2._0.Controllers
 
         public ActionResult AddOne()
         {
-            myDict.Add(myDict.Keys.Last() + 1, String.Concat("New Entry ", myDict.Keys.Last() + 1));
+            if (myDict.Count > 0)
+            {
+                myDict.Add(String.Concat("New Entry ", myDict.Values.Last() + 1), myDict.Values.Last() + 1);
+            }
+            else
+            {
+                myDict.Add("New Entry 1", 1);
+            }
 
             ViewBag.Dict = myDict;
 
@@ -33,7 +40,7 @@ namespace DataStructures2._0.Controllers
 
             for (var iCount = 1; iCount <= numToAdd; iCount++)
             {
-                myDict.Add(iCount, String.Concat("New Entry ", iCount));
+                myDict.Add(String.Concat("New Entry ", iCount), iCount);
             }
             ViewBag.Dict = myDict;
             return View("IndexD");
@@ -44,14 +51,26 @@ namespace DataStructures2._0.Controllers
             ViewBag.Dict = myDict;
             return View("IndexD");
         }
+
         public ActionResult DeleteFrom()
         {
-            //deleting
-            //return a view first
-            //on submit perform the function
-
-            return View()
+            return View();
         }
+
+        [HttpPost]
+        public ActionResult DeleteItem(Nullable<int> index = null)
+        {
+            try
+            {
+                myDict.Remove(String.Concat("New Entry ", index));
+            }
+            catch (ArgumentException) {
+                return View("~/Views/Shared/DeleteError.cshtml");
+            }
+            ViewBag.Dict = myDict;
+            return View("IndexD");
+        }
+
         public ActionResult Clear()
         {
             myDict.Clear();
@@ -61,10 +80,26 @@ namespace DataStructures2._0.Controllers
         }
         public ActionResult Search()
         {
+            System.Diagnostics.Stopwatch sw = new System.Diagnostics.Stopwatch();
 
+            sw.Start();
+
+            string result = myDict.ContainsKey("New Entry 3").ToString();
+
+            sw.Stop();
+
+            TimeSpan ts = sw.Elapsed;
+
+            ViewBag.StopWatch = ts;
+            ViewBag.Result = result;
+
+
+            ViewBag.Dict = myDict;
+            return View();
         }
         public ActionResult Return()
         {
+            ViewBag.Dict = myDict;
             return View("Index", "Home");
         }
     }

@@ -1,11 +1,15 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "DeleteFrom";
 }
 
 <h2>DeleteFrom</h2>
-@using (Html.BeginForm())
-{
-    <p>Item to delete: @Html.TextBox(ViewBag.dItem)</p>
-}
+
+<form action="/Dictionary/DeleteItem" method="post">
+    <p>
+        Enter in the item number that you want to delete:
+        <input type="text" name="index" />
+    </p>
+    <input type="submit" value="Submit" />
+
+</form>
 

@@ -166,6 +166,8 @@
     <Content Include="Views\Stack\IndexS.cshtml" />
     <Content Include="Views\Dictionary\IndexD.cshtml" />
     <Content Include="Views\Dictionary\DeleteFrom.cshtml" />
+    <Content Include="Views\Shared\DeleteError.cshtml" />
+    <Content Include="Views\Dictionary\Search.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
